@@ -25,28 +25,6 @@
         }
       ]
     },
-    "dasdsa": {
-      "type": "text",
-      "chapter": "cap1",
-      "data": {
-        "text": "dasdasdsa",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
-        "size": "22px"
-      },
-      "choices": [
-        {
-          "label": "dsadsa",
-          "next": ""
-        },
-        {
-          "label": "dasdsadsa",
-          "next": ""
-        }
-      ],
-      "choiceBorder": "#e0c97f",
-      "choiceColor": "#e0c97f"
-    },
     "dgsdgs": {
       "type": "text",
       "chapter": "cap1",
@@ -68,9 +46,128 @@
       ],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
+    },
+    "nuevo_1_1": {
+      "type": "text",
+      "chapter": "nuevo",
+      "data": {
+        "text": "sadasdsa",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [
+        {
+          "label": "sadasd",
+          "next": "nuevo_1_1_1"
+        },
+        {
+          "label": "dasdad",
+          "next": "nuevo_1_1_2"
+        }
+      ],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "nuevo_1_2": {
+      "type": "text",
+      "chapter": "nuevo",
+      "data": {
+        "text": "dasdsadas",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [
+        {
+          "label": "asdsada",
+          "next": "nuevo_1_2_1"
+        },
+        {
+          "label": "sadasda",
+          "next": "nuevo_1_2_2"
+        }
+      ],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "nuevo_1": {
+      "type": "text",
+      "chapter": "nuevo",
+      "data": {
+        "text": "asdasdas",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [
+        {
+          "label": "sdadada",
+          "next": "nuevo_1_1"
+        },
+        {
+          "label": "sadsadas",
+          "next": "nuevo_1_2"
+        }
+      ],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "nuevo_1_1_1": {
+      "type": "text",
+      "chapter": "nuevo",
+      "data": {
+        "text": "",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "nuevo_1_1_2": {
+      "type": "text",
+      "chapter": "nuevo",
+      "data": {
+        "text": "",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "nuevo_1_2_1": {
+      "type": "text",
+      "chapter": "nuevo",
+      "data": {
+        "text": "",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "nuevo_1_2_2": {
+      "type": "text",
+      "chapter": "nuevo",
+      "data": {
+        "text": "",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
     }
   },
   "chapters": [
-    "cap1"
+    "cap1",
+    "nuevo"
   ]
 }
