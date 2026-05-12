@@ -3,7 +3,7 @@
     "title": "Mi Historia",
     "version": 1,
     "created": "2026-05-12",
-    "start": "nuevo_1"
+    "start": "placerism_1"
   },
   "entries": {
     "dialectica": {
@@ -47,119 +47,138 @@
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     },
-    "nuevo_1_1": {
+    "placerism_1_1": {
       "type": "text",
-      "chapter": "nuevo",
+      "chapter": "placerism",
       "data": {
-        "text": "sadasdsa",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
+        "text": "placerism es un neoroneo creado para ti, se esta escribiendo segun tu deseo (*ᴗ͈ˬᴗ͈)ꕤ*.ﾟ",
+        "bg": "#721c1f",
+        "color": "#e28cfb",
         "size": "22px"
       },
       "choices": [
         {
-          "label": "sadasd",
-          "next": "nuevo_1_1_1"
-        },
-        {
-          "label": "dasdad",
-          "next": "nuevo_1_1_2"
+          "label": "saber como funciona",
+          "next": "placerism_1_1_1"
         }
       ],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     },
-    "nuevo_1_2": {
+    "placerism_1": {
       "type": "text",
-      "chapter": "nuevo",
+      "chapter": "placerism",
       "data": {
-        "text": "dasdsadas",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
+        "text": "bienvenida a placerism",
+        "bg": "#4e49fd",
+        "color": "#e28cfb",
         "size": "22px"
       },
       "choices": [
         {
-          "label": "asdsada",
-          "next": "nuevo_1_2_1"
-        },
-        {
-          "label": "sadasda",
-          "next": "nuevo_1_2_2"
+          "label": "informarme",
+          "next": "placerism_1_1"
         }
       ],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     },
-    "nuevo_1": {
+    "placerism_1_1_1": {
       "type": "text",
-      "chapter": "nuevo",
+      "chapter": "placerism",
       "data": {
-        "text": "asdasdas",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
-        "size": "22px"
+        "text": "en la esquina superior izquierda tienes un menu desplegable donde iras viendo opciones nuevas (serás informada por mensaje whatsapp)",
+        "bg": "#064c2c",
+        "color": "#e28cfb",
+        "size": "10px"
       },
       "choices": [
         {
-          "label": "sdadada",
-          "next": "nuevo_1_1"
-        },
-        {
-          "label": "sadsadas",
-          "next": "nuevo_1_2"
+          "label": "cuentame más",
+          "next": "placerism_1_1_1_1"
         }
       ],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     },
-    "nuevo_1_1_1": {
+    "placerism_1_1_1_1": {
       "type": "text",
-      "chapter": "nuevo",
+      "chapter": "placerism",
       "data": {
-        "text": "",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
-        "size": "22px"
+        "text": "en ese menu esta disponible (workinprogress) la opcion de diario, donde puedes escribir anotaciones & lo leere.aunque lo interesante de este neoroneo es la manera de llegar a los lugares o situaciones, el diario es un buzón de sugerencias/roleplays etc...",
+        "bg": "#4e49fd",
+        "color": "#e28cfb",
+        "size": "12px"
+      },
+      "choices": [
+        {
+          "label": "como?",
+          "next": "placerism_1_1_1_1_1"
+        },
+        {
+          "label": "quien elije?",
+          "next": "placerism_1_1_1_1_2"
+        }
+      ],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "placerism_1_1_1_1_1": {
+      "type": "text",
+      "chapter": "placerism",
+      "data": {
+        "text": "tu irás decidiendo apretando los botones & el neoroneo avanzará. antes de cerrar apretas al boton de la cartita y me envias el archivo que se descargue por whatsapp que viene con la info de tus decisiones        ദ്ദി（• ˕ •",
+        "bg": "#ffc8c1",
+        "color": "#721c1f",
+        "size": "16px"
       },
       "choices": [],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     },
-    "nuevo_1_1_2": {
+    "placerism_1_1_1_1_2": {
       "type": "text",
-      "chapter": "nuevo",
+      "chapter": "placerism",
       "data": {
-        "text": "",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
+        "text": "tendrás que dejarte llevar por lo que te apetezca en ese momento",
+        "bg": "#721c1f",
+        "color": "#4e49fd",
         "size": "22px"
+      },
+      "choices": [
+        {
+          "label": "dulce",
+          "next": "placerism_1_1_1_1_2_1"
+        },
+        {
+          "label": "salado",
+          "next": "placerism_1_1_1_1_2_2"
+        }
+      ],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "placerism_1_1_1_1_2_1": {
+      "type": "text",
+      "chapter": "placerism",
+      "data": {
+        "text": "(っ˶ ˘ ᵕ˘)ˆᵕ ˆ˶ς)   dulce? depende de lo que elijas te llevarán a un lugar u a otro, después debes darle a la cartita de abajo y enviarme el archivo que se descargue por whatsapp( ahi viene la info de tus decisiones)",
+        "bg": "#721c1f",
+        "color": "#e28cfb",
+        "size": "14px"
       },
       "choices": [],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     },
-    "nuevo_1_2_1": {
+    "placerism_1_1_1_1_2_2": {
       "type": "text",
-      "chapter": "nuevo",
+      "chapter": "placerism",
       "data": {
-        "text": "",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
-        "size": "22px"
-      },
-      "choices": [],
-      "choiceBorder": "#e0c97f",
-      "choiceColor": "#e0c97f"
-    },
-    "nuevo_1_2_2": {
-      "type": "text",
-      "chapter": "nuevo",
-      "data": {
-        "text": "",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
-        "size": "22px"
+        "text": "≽(•⩊ •マ≼ cada decision cuenta en como transcurre el neoroneo, cuando hagas cada sesion debes darle a la cartita para enviarme el archivo que se descargue al whatsapp (con tus decisiones) para tener la info para el siguiente espacio, habra dibujos, curator of internet...",
+        "bg": "#721c1f",
+        "color": "#4e49fd",
+        "size": "14px"
       },
       "choices": [],
       "choiceBorder": "#e0c97f",
@@ -168,6 +187,8 @@
   },
   "chapters": [
     "cap1",
-    "nuevo"
+    "nuevo",
+    "bienvendia",
+    "placerism"
   ]
 }
