@@ -5,8 +5,10 @@
     "created": "2026-05-12",
     "start": "placerism_1",
     "timeMachine": {
-      "password": "",
-      "chapters": []
+      "password": ":>",
+      "chapters": [
+        "placerism"
+      ]
     }
   },
   "entries": {
@@ -188,26 +190,74 @@
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     },
-    "modismos_1": {
+    "avel_1_1": {
+      "type": "text",
+      "chapter": "avel",
+      "data": {
+        "text": "",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "avel_1_2": {
+      "type": "text",
+      "chapter": "avel",
+      "data": {
+        "text": "",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "avel_1": {
       "type": "image",
-      "chapter": "modismos",
+      "chapter": "avel",
       "data": {
         "images": [
           {
-            "src": "data/fulana.png",
-            "name": "fulana.png",
+            "src": "data/fulana.jpg",
+            "name": "fulana.jpg",
             "isChoice": true,
             "linkTo": "",
-            "x": 72.03065101900282,
-            "y": 36.73550787045902,
-            "w": 80
+            "x": 50,
+            "y": 50,
+            "w": 80,
+            "rot": 0
+          },
+          {
+            "src": "data/Sin título-8.jpg",
+            "name": "Sin título-8.jpg",
+            "isChoice": true,
+            "linkTo": "",
+            "x": 52.39463598032639,
+            "y": 88.39685901606646,
+            "w": 80,
+            "rot": 0
           }
         ],
         "bg": "#0a0a0a",
-        "src": "data/fulana.png",
+        "src": "data/fulana.jpg",
         "blocks": []
       },
-      "choices": [],
+      "choices": [
+        {
+          "label": "fulana.jpg",
+          "next": "avel_1_1",
+          "_choiceType": "image"
+        },
+        {
+          "label": "Sin título-8.jpg",
+          "next": "avel_1_2",
+          "_choiceType": "image"
+        }
+      ],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     }
@@ -217,6 +267,7 @@
     "nuevo",
     "bienvendia",
     "placerism",
-    "modismos"
+    "modismos",
+    "avel"
   ]
 }
