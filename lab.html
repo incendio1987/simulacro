@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio de Historia</title>
+<style>
+/* ============================================================
+   ADMIN THEME
+   ============================================================ */
+:root {
+  --bg: #111;
+  --panel: #1a1a1a;
+  --border: #2a2a2a;
+  --text: #ddd;
+  --accent: #e0c97f;
+  --accent2: #7fc8e0;
+  --danger: #e07f7f;
+  --font: 'Arial Black', Arial, sans-serif;
+  --radius: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: var(--font); background:var(--bg); color:var(--text); height:100vh; overflow:hidden; font-size:12px; text-transform:uppercase; }
+
+/* ============================================================
+   LAYOUT: 3 COLUMNS
+   ============================================================ */
+#app { display:flex; height:100vh; }
+
+/* LEFT: Tree navigator */
+#left-panel {
+  width: 240px;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+#left-header {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+#left-header button {
+  flex: 1;
+  padding: 8px 4px;
+  font-size: 10px;
+  background: var(--border);
+  color: var(--text);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: var(--font);
+  text-transform: uppercase;
+}
+#left-header button:hover { background: var(--accent); color:#111; }
+#left-header button.active { background: var(--accent); color:#111; }
+
+#tree-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+/* Tree items */
+.tree-node {
+  padding: 8px 10px;
+  margin: 2px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tree-node:hover { background: rgba(255,255,255,0.06); }
+.tree-node.selected { background: var(--accent); color:#111; }
+.tree-node .indent { display:inline-block; }
+.tree-node .type-badge {
+  font-size: 8px;
+  background: rgba(255,255,255,0.1);
+  padding: 2px 5px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* CENTER: Editor / Creator */
+#center-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Tabs bar */
+#tabs-bar {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+.tab {
+  padding: 12px 18px;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 1px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.tab:hover { background: rgba(255,255,255,0.04); }
+.tab.active { border-bottom-color: var(--accent); color: var(--accent); }
+
+/* Tab content */
+.tab-content { display:none; flex:1; overflow-y:auto; padding:20px; }
+.tab-content.active { display:block; }
+
+/* RIGHT: Decisions navigator */
+#right-panel {
+  width: 220px;
+  background: var(--panel);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+#right-header {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+#right-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+.decision-card {
+  background: rgba(255,255,255,0.04);
+  border-radius: var(--radius);
+  padding: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.decision-card:hover { background: rgba(255,255,255,0.08); }
+.decision-card .label { color:var(--accent); font-size:11px; margin-bottom:4px; }
+.decision-card .target { font-size:10px; opacity:0.6; }
+
+/* ============================================================
+   FORM ELEMENTS (reutilizables)
+   ============================================================ */
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 10px;
+  color: var(--accent);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%;
+  padding: 10px;
+  background: var(--border);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 12px;
+}
+.form-group textarea { min-height:80px; resize:vertical; text-transform:none; }
+
+.form-row { display:flex; gap:10px; }
+.form-row .form-group { flex:1; }
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 11px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity:0.85; }
+.btn-primary { background:var(--accent); color:#111; }
+.btn-secondary { background:var(--border); color:var(--text); }
+.btn-danger { background:var(--danger); color:#111; }
+
+/* ============================================================
+   PREVIEW PHONE
+   ============================================================ */
+#preview-frame {
+  width: 280px;
+  height: 500px;
+  background: #0a0a0a;
+  border-radius: 20px;
+  border: 2px solid var(--border);
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+#preview-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+#preview-choices {
+  display: flex;
+  gap: 6px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#preview-choices button {
+  padding: 8px 12px;
+  background: var(--accent);
+  color: #111;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   READER (Programa 1) dentro de tab
+   ============================================================ */
+#reader-output {
+  background: var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  font-size: 12px;
+  line-height: 1.8;
+  text-transform: none;
+  white-space: pre-wrap;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+#reader-drop {
+  border: 2px dashed rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+#reader-drop:hover { border-color: var(--accent); }
+
+/* ============================================================
+   GITHUB DEPLOY SECTION
+   ============================================================ */
+#deploy-section {
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- ========== LEFT PANEL: TREE ========== -->
+  <div id="left-panel">
+    <div id="left-header">
+      <button onclick="newEntry()" title="Nueva entrada">+ NUEVA</button>
+      <button onclick="deleteEntry()" title="Eliminar" class="">🗑</button>
+    </div>
+    <div id="tree-container"></div>
+  </div>
+
+  <!-- ========== CENTER PANEL ========== -->
+  <div id="center-panel">
+    <div id="tabs-bar">
+      <div class="tab active" onclick="switchTab('creator')">Crear</div>
+      <div class="tab" onclick="switchTab('reader')">Leer Export</div>
+      <div class="tab" onclick="switchTab('deploy')">Subir</div>
+      <!-- ============================================================
+           AÑADIR NUEVAS TABS AQUÍ
+           <div class="tab" onclick="switchTab('miTab')">Mi Tab</div>
+           ============================================================ -->
+    </div>
+
+    <!-- TAB: CREATOR -->
+    <div class="tab-content active" id="tab-creator">
+      <!-- Entry type selector -->
+      <div class="form-group">
+        <label>Tipo de entrada</label>
+        <div id="type-selector" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <!-- Los tipos se generan dinámicamente desde ENTRY_TEMPLATES -->
+        </div>
+      </div>
+
+      <!-- Dynamic form (cambia según el tipo) -->
+      <div id="entry-form"></div>
+
+      <!-- Preview -->
+      <div id="preview-frame">
+        <div id="preview-content"></div>
+        <div id="preview-choices"></div>
+      </div>
+
+      <!-- Decisions -->
+      <div id="choices-editor">
+        <div class="form-group">
+          <label>Número de decisiones</label>
+          <input type="number" id="num-choices" min="0" max="6" value="2" onchange="updateChoicesEditor()">
+        </div>
+        <div id="choices-fields"></div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="saveEntry()">Guardar entrada</button>
+        <button class="btn btn-secondary" onclick="updatePreview()">Preview</button>
+        <button class="btn btn-secondary" onclick="downloadStory()">Descargar story.json</button>
+      </div>
+    </div>
+
+    <!-- TAB: READER (Programa 1) -->
+    <div class="tab-content" id="tab-reader">
+      <h3 style="color:var(--accent);margin-bottom:16px;letter-spacing:2px;">Lector de Exportaciones</h3>
+      <div id="reader-drop" onclick="document.getElementById('reader-file').click()">
+        Arrastra aquí el JSON exportado o haz click para seleccionar
+      </div>
+      <input type="file" id="reader-file" accept=".json" style="display:none" onchange="readExport(event)">
+      <div id="reader-output"></div>
+    </div>
+
+    <!-- TAB: DEPLOY -->
+    <div class="tab-content" id="tab-deploy">
+      <h3 style="color:var(--accent);margin-bottom:16px;letter-spacing:2px;">Subir a GitHub</h3>
+      <div id="deploy-section">
+        <div class="form-group">
+          <label>Token de GitHub</label>
+          <input type="password" id="gh-token" placeholder="ghp_xxxxx">
+        </div>
+        <div class="form-group">
+          <label>Repositorio (usuario/repo)</label>
+          <input type="text" id="gh-repo" placeholder="miusuario/mi-historia">
+        </div>
+        <div class="form-group">
+          <label>Rama</label>
+          <input type="text" id="gh-branch" value="main">
+        </div>
+        <button class="btn btn-primary" onclick="deployToGitHub()">Subir story.json</button>
+        <p id="deploy-status" style="margin-top:10px;font-size:11px;opacity:0.7;"></p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         AÑADIR NUEVAS TAB-CONTENT AQUÍ
+         <div class="tab-content" id="tab-miTab">...</div>
+         ============================================================ -->
+  </div>
+
+  <!-- ========== RIGHT PANEL: DECISIONS ========== -->
+  <div id="right-panel">
+    <div id="right-header">Decisiones →</div>
+    <div id="right-container"></div>
+  </div>
+</div>
+
+<script>
+/* ==============================================================
+   STORY DATA (en memoria del admin)
+   ============================================================== */
+let story = {
+  meta: { title: "Mi Historia", version: 1, created: new Date().toISOString().slice(0,10) },
+  entries: {}
+};
+
+let selectedEntryId = null;
+let selectedType = 'text';
+
+// Cargar desde localStorage del admin
+function loadAdminState() {
+  const s = localStorage.getItem('admin_story');
+  if (s) { try { story = JSON.parse(s); } catch(e) {} }
+}
+function saveAdminState() {
+  localStorage.setItem('admin_story', JSON.stringify(story));
+}
+
+/* ==============================================================
+   ENTRY TEMPLATES (MODULAR - PLUGIN SYSTEM)
+   ==============================================================
+   Para añadir un nuevo tipo de entrada:
+   1. Añade un objeto a ENTRY_TEMPLATES con:
+      - label: nombre que aparece en el selector
+      - icon: emoji
+      - formHTML(): retorna el HTML del formulario
+      - getData(): lee el formulario y retorna el objeto data
+      - preview(data): retorna HTML para el preview
+   2. Eso es todo. Aparecerá automáticamente en el selector y
+      el preview, y se guardará en el story.json.
+   ============================================================== */
+
+const ENTRY_TEMPLATES = {};
+
+// ---------- TEMPLATE: TEXT ----------
+ENTRY_TEMPLATES.text = {
+  label: 'Texto',
+  icon: '📝',
+  formHTML() {
+    const d = getCurrentData();
+    return `
+      <div class="form-group">
+        <label>ID de la entrada</label>
+        <input type="text" id="f-id" value="${selectedEntryId || ''}" placeholder="ej: cap1_intro">
+      </div>
+      <div class="form-group">
+        <label>Texto</label>
+        <textarea id="f-text" oninput="updatePreview()">${d.text || ''}</textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Color fondo</label>
+          <input type="color" id="f-bg" value="${d.bg || '#0a0a0a'}" onchange="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Color texto</label>
+          <input type="color" id="f-color" value="${d.color || '#f0f0f0'}" onchange="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Tamaño</label>
+          <input type="text" id="f-size" value="${d.size || '22px'}" onchange="updatePreview()">
+        </div>
+      </div>
+    `;
+  },
+  getData() {
+    return {
+      text: document.getElementById('f-text')?.value || '',
+      bg: document.getElementById('f-bg')?.value || '#0a0a0a',
+      color: document.getElementById('f-color')?.value || '#f0f0f0',
+      size: document.getElementById('f-size')?.value || '22px'
+    };
+  },
+  preview(data) {
+    return `<div style="
+      color:${data.color};
+      font-size:${data.size};
+      font-family:Arial Black,sans-serif;
+      text-transform:uppercase;
+      line-height:1.4;
+      padding:10px;
+    ">${data.text || 'Texto...'}</div>`;
+  }
+};
+
+// ---------- TEMPLATE: IMAGE ----------
+ENTRY_TEMPLATES.image = {
+  label: 'Imagen',
+  icon: '🖼',
+  formHTML() {
+    const d = getCurrentData();
+    return `
+      <div class="form-group">
+        <label>ID de la entrada</label>
+        <input type="text" id="f-id" value="${selectedEntryId || ''}" placeholder="ej: cap1_foto">
+      </div>
+      <div class="form-group">
+        <label>URL de la imagen</label>
+        <input type="text" id="f-src" value="${d.src || ''}" placeholder="img/foto.jpg" oninput="updatePreview()">
+      </div>
+      <div class="form-group">
+        <label>Pie de imagen</label>
+        <input type="text" id="f-caption" value="${d.caption || ''}" oninput="updatePreview()">
+      </div>
+      <div class="form-group">
+        <label>Color fondo</label>
+        <input type="color" id="f-bg" value="${d.bg || '#0a0a0a'}" onchange="updatePreview()">
+      </div>
+    `;
+  },
+  getData() {
+    return {
+      src: document.getElementById('f-src')?.value || '',
+      caption: document.getElementById('f-caption')?.value || '',
+      bg: document.getElementById('f-bg')?.value || '#0a0a0a'
+    };
+  },
+  preview(data) {
+    if (!data.src) return '<div style="opacity:0.4;">Sin imagen</div>';
+    return `<img src="${data.src}" style="max-width:100%;max-height:300px;border-radius:12px;">
+    ${data.caption ? `<p style="font-size:10px;opacity:0.6;margin-top:6px;">${data.caption}</p>` : ''}`;
+  }
+};
+
+// ---------- TEMPLATE: HTML ----------
+ENTRY_TEMPLATES.html = {
+  label: 'HTML/Anim',
+  icon: '✨',
+  formHTML() {
+    const d = getCurrentData();
+    return `
+      <div class="form-group">
+        <label>ID de la entrada</label>
+        <input type="text" id="f-id" value="${selectedEntryId || ''}" placeholder="ej: cap1_anim">
+      </div>
+      <div class="form-group">
+        <label>Código HTML/CSS/JS</label>
+        <textarea id="f-content" style="min-height:150px;font-family:monospace;text-transform:none;" oninput="updatePreview()">${d.content || ''}</textarea>
+      </div>
+      <div class="form-group">
+        <label>Color fondo</label>
+        <input type="color" id="f-bg" value="${d.bg || '#0a0a0a'}" onchange="updatePreview()">
+      </div>
+    `;
+  },
+  getData() {
+    return {
+      content: document.getElementById('f-content')?.value || '',
+      bg: document.getElementById('f-bg')?.value || '#0a0a0a'
+    };
+  },
+  preview(data) {
+    return data.content || '<div style="opacity:0.4;">Sin contenido</div>';
+  }
+};
+
+/* ==============================================================
+   AÑADIR NUEVOS TEMPLATES AQUÍ
+   ==============================================================
+   Ejemplo - Template de Video:
+
+   ENTRY_TEMPLATES.video = {
+     label: 'Vídeo',
+     icon: '🎬',
+     formHTML() {
+       const d = getCurrentData();
+       return `
+         <div class="form-group">
+           <label>ID</label>
+           <input type="text" id="f-id" value="${selectedEntryId || ''}">
+         </div>
+         <div class="form-group">
+           <label>URL del vídeo</label>
+           <input type="text" id="f-src" value="${d.src || ''}">
+         </div>
+       `;
+     },
+     getData() {
+       return { src: document.getElementById('f-src')?.value || '' };
+     },
+     preview(data) {
+       return `<video src="${data.src}" style="max-width:100%;" controls></video>`;
+     }
+   };
+
+   ============================================================== */
+
+/* ==============================================================
+   HELPER
+   ============================================================== */
+function getCurrentData() {
+  if (selectedEntryId && story.entries[selectedEntryId]) {
+    return story.entries[selectedEntryId].data || {};
+  }
+  return {};
+}
+
+/* ==============================================================
+   TYPE SELECTOR (auto-generated from ENTRY_TEMPLATES)
+   ============================================================== */
+function renderTypeSelector() {
+  const container = document.getElementById('type-selector');
+  container.innerHTML = Object.keys(ENTRY_TEMPLATES).map(key => {
+    const t = ENTRY_TEMPLATES[key];
+    return `<button class="btn ${selectedType===key?'btn-primary':'btn-secondary'}"
+      onclick="selectType('${key}')">${t.icon} ${t.label}</button>`;
+  }).join('');
+}
+
+function selectType(type) {
+  selectedType = type;
+  renderTypeSelector();
+  renderForm();
+  updatePreview();
+}
+
+/* ==============================================================
+   FORM RENDERING
+   ============================================================== */
+function renderForm() {
+  const template = ENTRY_TEMPLATES[selectedType];
+  if (!template) return;
+  document.getElementById('entry-form').innerHTML = template.formHTML();
+  updateChoicesEditor();
+}
+
+function updatePreview() {
+  const template = ENTRY_TEMPLATES[selectedType];
+  if (!template) return;
+  const data = template.getData();
+
+  // Preview content
+  const previewContent = document.getElementById('preview-content');
+  previewContent.innerHTML = template.preview(data);
+
+  // Preview frame background
+  const frame = document.getElementById('preview-frame');
+  frame.style.background = data.bg || '#0a0a0a';
+
+  // Preview choices
+  const numChoices = parseInt(document.getElementById('num-choices').value) || 0;
+  const previewChoices = document.getElementById('preview-choices');
+  let choicesHTML = '';
+  for (let i = 0; i < numChoices; i++) {
+    const label = document.getElementById(`choice-label-${i}`)?.value || `Opción ${i+1}`;
+    choicesHTML += `<button>${label}</button>`;
+  }
+  previewChoices.innerHTML = choicesHTML;
+}
+
+/* ==============================================================
+   CHOICES EDITOR
+   ============================================================== */
+function updateChoicesEditor() {
+  const num = parseInt(document.getElementById('num-choices').value) || 0;
+  const container = document.getElementById('choices-fields');
+  const existing = selectedEntryId && story.entries[selectedEntryId]?.choices || [];
+
+  let html = '';
+  for (let i = 0; i < num; i++) {
+    const c = existing[i] || {};
+    html += `
+      <div class="form-row" style="margin-bottom:8px;">
+        <div class="form-group">
+          <label>Decisión ${i+1} - Texto</label>
+          <input type="text" id="choice-label-${i}" value="${c.label || ''}" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>→ Lleva a (ID)</label>
+          <input type="text" id="choice-next-${i}" value="${c.next || ''}" placeholder="id_siguiente">
+        </div>
+      </div>
+    `;
+  }
+  container.innerHTML = html;
+}
+
+/* ==============================================================
+   SAVE / LOAD ENTRY
+   ============================================================== */
+function saveEntry() {
+  const template = ENTRY_TEMPLATES[selectedType];
+  if (!template) return;
+
+  const id = document.getElementById('f-id')?.value?.trim();
+  if (!id) { alert('Falta el ID de la entrada'); return; }
+
+  const data = template.getData();
+  const numChoices = parseInt(document.getElementById('num-choices').value) || 0;
+  const choices = [];
+  for (let i = 0; i < numChoices; i++) {
+    choices.push({
+      label: document.getElementById(`choice-label-${i}`)?.value || `Opción ${i+1}`,
+      next: document.getElementById(`choice-next-${i}`)?.value || ''
+    });
+  }
+
+  story.entries[id] = { type: selectedType, data, choices };
+  selectedEntryId = id;
+  saveAdminState();
+  renderTree();
+  renderRightPanel();
+  alert('Entrada guardada: ' + id);
+}
+
+function loadEntry(id) {
+  selectedEntryId = id;
+  const entry = story.entries[id];
+  if (!entry) return;
+
+  selectedType = entry.type || 'text';
+  renderTypeSelector();
+  renderForm();
+
+  // Set choices
+  document.getElementById('num-choices').value = entry.choices?.length || 0;
+  updateChoicesEditor();
+
+  // Re-render form with loaded data (need to call again after choices)
+  renderForm();
+  if (entry.choices) {
+    document.getElementById('num-choices').value = entry.choices.length;
+    updateChoicesEditor();
+  }
+
+  updatePreview();
+  renderTree();
+  renderRightPanel();
+}
+
+function newEntry() {
+  selectedEntryId = null;
+  selectedType = 'text';
+  renderTypeSelector();
+  renderForm();
+  updatePreview();
+}
+
+function deleteEntry() {
+  if (!selectedEntryId) return;
+  if (!confirm('¿Eliminar "' + selectedEntryId + '"?')) return;
+  delete story.entries[selectedEntryId];
+  selectedEntryId = null;
+  saveAdminState();
+  renderTree();
+  newEntry();
+}
+
+/* ==============================================================
+   TREE RENDERING (left panel)
+   ============================================================== */
+function renderTree() {
+  const container = document.getElementById('tree-container');
+  const ids = Object.keys(story.entries);
+  if (ids.length === 0) {
+    container.innerHTML = '<div style="opacity:0.4;padding:10px;">Sin entradas</div>';
+    return;
+  }
+
+  // Build simple tree from 'start'
+  const visited = new Set();
+  let html = '';
+
+  function renderNode(id, depth) {
+    if (visited.has(id) || !story.entries[id]) return;
+    visited.add(id);
+    const entry = story.entries[id];
+    const indent = depth * 16;
+    const sel = id === selectedEntryId ? 'selected' : '';
+    const typeBadge = ENTRY_TEMPLATES[entry.type]?.icon || '?';
+
+    html += `<div class="tree-node ${sel}" onclick="loadEntry('${id}')" style="padding-left:${10+indent}px;">
+      <span class="type-badge">${typeBadge}</span>
+      ${id}
+    </div>`;
+
+    if (entry.choices) {
+      entry.choices.forEach(c => { if (c.next) renderNode(c.next, depth + 1); });
+    }
+  }
+
+  // Start from 'start', then show orphans
+  if (story.entries['start']) renderNode('start', 0);
+  ids.forEach(id => { if (!visited.has(id)) renderNode(id, 0); });
+
+  container.innerHTML = html;
+}
+
+/* ==============================================================
+   RIGHT PANEL (decisions of current entry)
+   ============================================================== */
+function renderRightPanel() {
+  const container = document.getElementById('right-container');
+  if (!selectedEntryId || !story.entries[selectedEntryId]) {
+    container.innerHTML = '<div style="opacity:0.4;padding:10px;">Selecciona una entrada</div>';
+    return;
+  }
+  const entry = story.entries[selectedEntryId];
+  if (!entry.choices || entry.choices.length === 0) {
+    container.innerHTML = '<div style="opacity:0.4;padding:10px;">Sin decisiones</div>';
+    return;
+  }
+
+  container.innerHTML = entry.choices.map((c, i) => `
+    <div class="decision-card" onclick="${c.next && story.entries[c.next] ? `loadEntry('${c.next}')` : ''}">
+      <div class="label">${c.label || 'Decisión ' + (i+1)}</div>
+      <div class="target">→ ${c.next || '???'} ${story.entries[c.next] ? '✓' : '⚠ no existe'}</div>
+    </div>
+  `).join('');
+}
+
+/* ==============================================================
+   TABS
+   ============================================================== */
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  // Activate tab button
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(t => { if (t.textContent.toLowerCase().includes(tabId.substring(0,4))) t.classList.add('active'); });
+}
+
+/* ==============================================================
+   READER (Programa 1) - Leer JSON exportado
+   ==============================================================
+   Traduce el JSON a lenguaje humano.
+   Para añadir nuevos campos al reporte, añade líneas en
+   la función formatExport().
+   ============================================================== */
+function readExport(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      document.getElementById('reader-output').textContent = formatExport(data);
+    } catch(err) {
+      document.getElementById('reader-output').textContent = 'Error leyendo JSON: ' + err.message;
+    }
+  };
+  reader.readAsText(file);
+}
+
+function formatExport(data) {
+  /* ==============================================================
+     FORMATEO DEL REPORTE
+     Añade/modifica secciones aquí para cambiar el reporte.
+     ============================================================== */
+  let report = '';
+
+  // SECCIÓN: Meta
+  report += `═══ REPORTE DE HISTORIA ═══\n`;
+  report += `Título: ${data.meta?.title || 'Sin título'}\n`;
+  report += `Exportado: ${formatDate(data.exported_at)}\n`;
+  report += `Inicio sesión: ${formatDate(data.state?.startedAt)}\n\n`;
+
+  // SECCIÓN: Historial de decisiones
+  report += `── DECISIONES TOMADAS ──\n`;
+  if (data.state?.history?.length > 0) {
+    data.state.history.forEach((h, i) => {
+      report += `${i+1}. [${formatDate(h.timestamp)}]\n`;
+      report += `   En: "${h.from}" → Eligió: "${h.chose}" → Va a: "${h.next}"\n\n`;
+    });
+  } else {
+    report += `No hay decisiones registradas.\n\n`;
+  }
+
+  // SECCIÓN: Entradas de diario
+  report += `── DIARIO ──\n`;
+  if (data.state?.diary?.length > 0) {
+    data.state.diary.forEach((d, i) => {
+      report += `${i+1}. [${formatDate(d.timestamp)}] (en entrada: ${d.atEntry})\n`;
+      report += `   "${d.text}"\n\n`;
+    });
+  } else {
+    report += `No hay entradas de diario.\n\n`;
+  }
+
+  // SECCIÓN: Posición actual
+  report += `── POSICIÓN ACTUAL ──\n`;
+  report += `Entrada actual: ${data.state?.currentEntry || 'desconocida'}\n`;
+
+  /* ==============================================================
+     AÑADIR NUEVAS SECCIONES DE REPORTE AQUÍ
+     Ejemplo:
+     report += `── MI NUEVA SECCIÓN ──\n`;
+     report += `Dato: ${data.state?.miCampo || 'n/a'}\n\n`;
+     ============================================================== */
+
+  return report;
+}
+
+function formatDate(iso) {
+  if (!iso) return '?';
+  const d = new Date(iso);
+  return d.toLocaleDateString('es-ES') + ' ' + d.toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit'});
+}
+
+/* ==============================================================
+   DOWNLOAD STORY.JSON
+   ============================================================== */
+function downloadStory() {
+  const blob = new Blob([JSON.stringify(story, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'story.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ==============================================================
+   DEPLOY TO GITHUB
+   ============================================================== */
+async function deployToGitHub() {
+  const token = document.getElementById('gh-token').value.trim();
+  const repo = document.getElementById('gh-repo').value.trim();
+  const branch = document.getElementById('gh-branch').value.trim() || 'main';
+  const status = document.getElementById('deploy-status');
+
+  if (!token || !repo) { status.textContent = 'Falta token o repositorio'; return; }
+
+  status.textContent = 'Subiendo...';
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(story, null, 2))));
+  const path = 'story.json';
+  const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+
+  try {
+    // Check if file exists (to get sha)
+    let sha = null;
+    try {
+      const existing = await fetch(apiUrl + `?ref=${branch}`, {
+        headers: { 'Authorization': `token ${token}` }
+      });
+      if (existing.ok) {
+        const data = await existing.json();
+        sha = data.sha;
+      }
+    } catch(e) {}
+
+    const body = {
+      message: 'Update story.json - ' + new Date().toISOString(),
+      content: content,
+      branch: branch
+    };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (res.ok) {
+      status.textContent = '✓ Subido correctamente a GitHub';
+      status.style.color = '#7fe07f';
+    } else {
+      const err = await res.json();
+      status.textContent = 'Error: ' + (err.message || res.status);
+      status.style.color = '#e07f7f';
+    }
+  } catch(e) {
+    status.textContent = 'Error: ' + e.message;
+    status.style.color = '#e07f7f';
+  }
+}
+
+/* ==============================================================
+   IMPORT STORY (cargar story.json existente al admin)
+   ============================================================== */
+// Drag & drop en tree area
+document.getElementById('tree-container').addEventListener('dragover', e => e.preventDefault());
+document.getElementById('tree-container').addEventListener('drop', e => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        story = JSON.parse(ev.target.result);
+        saveAdminState();
+        renderTree();
+        alert('Story cargado: ' + Object.keys(story.entries).length + ' entradas');
+      } catch(err) { alert('Error: ' + err.message); }
+    };
+    r.readAsText(file);
+  }
+});
+
+/* ==============================================================
+   INIT
+   ============================================================== */
+loadAdminState();
+renderTypeSelector();
+renderForm();
+renderTree();
+renderRightPanel();
+updatePreview();
+</script>
+</body>
+</html>

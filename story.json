@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "title": "Mi Historia",
+    "version": 1,
+    "created": "2026-05-12"
+  },
+  "entries": {
+    "start": {
+      "type": "text",
+      "data": {
+        "text": "Estás en una encrucijada. El camino se divide en dos.",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "24px"
+      },
+      "choices": [
+        { "label": "Ir a la izquierda", "next": "izq_1" },
+        { "label": "Ir a la derecha", "next": "der_1" }
+      ]
+    },
+    "izq_1": {
+      "type": "text",
+      "data": {
+        "text": "Encuentras un jardín silencioso. Una fuente suena a lo lejos.",
+        "bg": "#0b1a0b",
+        "color": "#c8e6c9",
+        "size": "22px"
+      },
+      "choices": [
+        { "label": "Acercarte a la fuente", "next": "start" },
+        { "label": "Sentarte a descansar", "next": "start" }
+      ]
+    },
+    "der_1": {
+      "type": "text",
+      "data": {
+        "text": "Un pasillo oscuro. Se oyen pasos.",
+        "bg": "#1a0a0a",
+        "color": "#ef9a9a",
+        "size": "26px"
+      },
+      "choices": [
+        { "label": "Avanzar", "next": "start" },
+        { "label": "Retroceder", "next": "start" }
+      ]
+    }
+  }
+}
