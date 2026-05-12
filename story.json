@@ -2,7 +2,8 @@
   "meta": {
     "title": "Mi Historia",
     "version": 1,
-    "created": "2026-05-12"
+    "created": "2026-05-12",
+    "start": "sadsaf"
   },
   "entries": {
     "dialectica": {
@@ -23,6 +24,54 @@
           "next": ""
         }
       ]
+    },
+    "sadsaf": {
+      "type": "text",
+      "chapter": "diadia",
+      "data": {
+        "text": "asffsafssd",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [
+        {
+          "label": "dsaas",
+          "next": ""
+        },
+        {
+          "label": "saddsadsadsa",
+          "next": ""
+        }
+      ],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "adasdasfsfs": {
+      "type": "text",
+      "chapter": "diadia",
+      "data": {
+        "text": "fdssdfdsds",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [
+        {
+          "label": "fdsdsfsadsda",
+          "next": "dialectica"
+        },
+        {
+          "label": "dsffdsdsfds",
+          "next": ""
+        }
+      ],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
     }
-  }
+  },
+  "chapters": [
+    "cap1",
+    "diadia"
+  ]
 }
