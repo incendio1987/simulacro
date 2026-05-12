@@ -3,7 +3,7 @@
     "title": "Mi Historia",
     "version": 1,
     "created": "2026-05-12",
-    "start": "sadsaf"
+    "start": "dasdsa"
   },
   "entries": {
     "dialectica": {
@@ -25,44 +25,44 @@
         }
       ]
     },
-    "sadsaf": {
+    "dasdsa": {
       "type": "text",
-      "chapter": "diadia",
+      "chapter": "cap1",
       "data": {
-        "text": "asffsafssd",
+        "text": "dasdasdsa",
         "bg": "#0a0a0a",
         "color": "#f0f0f0",
         "size": "22px"
       },
       "choices": [
         {
-          "label": "dsaas",
+          "label": "dsadsa",
           "next": ""
         },
         {
-          "label": "saddsadsadsa",
+          "label": "dasdsadsa",
           "next": ""
         }
       ],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
     },
-    "adasdasfsfs": {
+    "dgsdgs": {
       "type": "text",
-      "chapter": "diadia",
+      "chapter": "cap1",
       "data": {
-        "text": "fdssdfdsds",
+        "text": "fgsgffg",
         "bg": "#0a0a0a",
         "color": "#f0f0f0",
         "size": "22px"
       },
       "choices": [
         {
-          "label": "fdsdsfsadsda",
-          "next": "dialectica"
+          "label": "dssfggf",
+          "next": ""
         },
         {
-          "label": "dsffdsdsfds",
+          "label": "gfdgfsgsd",
           "next": ""
         }
       ],
@@ -71,7 +71,6 @@
     }
   },
   "chapters": [
-    "cap1",
-    "diadia"
+    "cap1"
   ]
 }
