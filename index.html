@@ -255,43 +255,107 @@ RENDERERS.text = function(data) {
   return `<div class="entry-text fade-in" style="color:${data.color||'var(--text)'};font-size:${data.size||'22px'};">${data.text||''}</div>`;
 };
 
-RENDERERS.image = function(data) {
+RENDERERS.image = function(data, entryId, choices) {
   let h = '<div class="fade-in" style="position:relative;width:100%;max-width:400px;margin:0 auto;min-height:200px;">';
-  // Render ALL images
   var imgs = data.images || [];
   if (!imgs.length && data.src) imgs = [{src:data.src}];
-  imgs.forEach(function(img) {
+  var imgChoiceIdx=0;
+  imgs.forEach(function(img, i) {
     var rot = img.rot ? 'rotate('+img.rot+'deg)' : '';
     var x = img.x != null ? img.x : 50;
     var y = img.y != null ? img.y : 50;
     var w = img.w || 100;
-    h += '<img src="'+img.src+'" style="position:absolute;left:'+x+'%;top:'+y+'%;width:'+w+'%;transform:translate(-50%,-50%) '+rot+';">';
+    var click = '';
+    if(img.isChoice && choices){
+      // Find matching choice by _choiceType=image
+      var ci = choices.findIndex(function(c,ci2){return c._choiceType==='image' && ci2>=imgChoiceIdx;});
+      if(ci>=0 && choices[ci].next){
+        var sl=(choices[ci].label||'').replace(/'/g,"\\'");
+        click = 'onclick="choose(\''+entryId+'\',\''+choices[ci].next+'\',\''+sl+'\','+ci+')" style="cursor:pointer;';
+        imgChoiceIdx=ci+1;
+      }
+    }
+    if(click){
+      h += '<img src="'+img.src+'" '+click+'position:absolute;left:'+x+'%;top:'+y+'%;width:'+w+'%;transform:translate(-50%,-50%) '+rot+';">';
+    } else {
+      h += '<img src="'+img.src+'" style="position:absolute;left:'+x+'%;top:'+y+'%;width:'+w+'%;transform:translate(-50%,-50%) '+rot+';">';
+    }
   });
+  var blockChoiceIdx=0;
   if (data.blocks && data.blocks.length) {
-    data.blocks.forEach(function(b) {
+    data.blocks.forEach(function(b, i) {
       var fs = b.style==='italic'?'font-style:italic;':'';
       var fw = b.style==='bold'?'font-weight:900;':'font-weight:normal;';
       var shadow = b.shadow?'text-shadow:0 2px 6px rgba(0,0,0,0.8);':'';
+      var tt = b.uppercase?'text-transform:uppercase;':'text-transform:none;';
       var rot = b.rot?'rotate('+b.rot+'deg)':'';
       var border = b.isChoice&&b.choiceBorder?'border:1px solid '+b.choiceBorder+';padding:4px 10px;border-radius:6px;':'';
-      h += '<div style="position:absolute;left:'+b.x+'%;top:'+b.y+'%;transform:translate(-50%,-50%) '+rot+';color:'+(b.color||'#fff')+';font-size:'+(b.size||'14px')+';'+fs+fw+shadow+'font-family:'+(b.font||'Arial Black')+',sans-serif;text-align:center;max-width:80%;'+ border+'">'+(b.text||'')+'</div>';
+      var click = '';
+      if(b.isChoice && choices){
+        var ci = choices.findIndex(function(c,ci2){return c._choiceType==='block' && ci2>=blockChoiceIdx;});
+        if(ci>=0 && choices[ci].next){
+          var sl=(choices[ci].label||'').replace(/'/g,"\\'");
+          click = 'onclick="choose(\''+entryId+'\',\''+choices[ci].next+'\',\''+sl+'\','+ci+')"';
+          border += 'cursor:pointer;';
+          blockChoiceIdx=ci+1;
+        }
+      }
+      h += '<div '+click+' style="position:absolute;left:'+b.x+'%;top:'+b.y+'%;transform:translate(-50%,-50%) '+rot+';color:'+(b.color||'#fff')+';font-size:'+(b.size||'14px')+';'+fs+fw+shadow+tt+'font-family:'+(b.font||'Arial Black')+',sans-serif;text-align:center;max-width:80%;'+border+'">'+(b.text||'')+'</div>';
     });
   }
   h += '</div>';
   return h;
 };
 
-RENDERERS.richtext = function(data) {
+RENDERERS.richtext = function(data, entryId, choices) {
   let h = '<div class="fade-in" style="position:relative;width:100%;height:100%;min-height:300px;">';
+  var blockChoiceIdx=0;
   if (data.blocks && data.blocks.length) {
-    data.blocks.forEach(function(b) {
+    data.blocks.forEach(function(b, i) {
       var fs = b.style==='italic'?'font-style:italic;':'';
       var fw = b.style==='bold'?'font-weight:900;':'font-weight:normal;';
       var shadow = b.shadow?'text-shadow:0 1px 4px rgba(0,0,0,0.5);':'';
       var tt = b.uppercase?'text-transform:uppercase;':'text-transform:none;';
       var rot = b.rot?'rotate('+b.rot+'deg)':'';
       var border = b.isChoice&&b.choiceBorder?'border:1px solid '+b.choiceBorder+';padding:4px 10px;border-radius:6px;':'';
-      h += '<div style="position:absolute;left:'+b.x+'%;top:'+b.y+'%;transform:translate(-50%,-50%) '+rot+';color:'+(b.color||'#f0f0f0')+';font-size:'+(b.size||'22px')+';'+fs+fw+shadow+tt+'font-family:'+(b.font||'Arial Black')+',sans-serif;text-align:center;max-width:85%;'+border+'">'+(b.text||'')+'</div>';
+      var click = '';
+      if(b.isChoice && choices){
+        var ci = choices.findIndex(function(c,ci2){return c._choiceType==='block' && ci2>=blockChoiceIdx;});
+        if(ci>=0 && choices[ci].next){
+          var sl=(choices[ci].label||'').replace(/'/g,"\\'");
+          click = 'onclick="choose(\''+entryId+'\',\''+choices[ci].next+'\',\''+sl+'\','+ci+')"';
+          border += 'cursor:pointer;';
+          blockChoiceIdx=ci+1;
+        }
+      }
+      h += '<div '+click+' style="position:absolute;left:'+b.x+'%;top:'+b.y+'%;transform:translate(-50%,-50%) '+rot+';color:'+(b.color||'#f0f0f0')+';font-size:'+(b.size||'22px')+';'+fs+fw+shadow+tt+'font-family:'+(b.font||'Arial Black')+',sans-serif;text-align:center;max-width:85%;'+border+'">'+(b.text||'')+'</div>';
+    });
+  }
+  h += '</div>';
+  return h;
+};
+
+RENDERERS.thermo = function(data, entryId, choices) {
+  let h = '<div class="fade-in" style="position:relative;width:100%;min-height:300px;">';
+  // Image if present
+  var imgs = data.images || [];
+  if (!imgs.length && data.src) imgs = [{src:data.src}];
+  imgs.forEach(function(img) {
+    var rot = img.rot ? 'rotate('+img.rot+'deg)' : '';
+    var x = img.x != null ? img.x : 50;
+    var y = img.y != null ? img.y : 50;
+    var w = img.w || 80;
+    h += '<img src="'+img.src+'" style="position:absolute;left:'+x+'%;top:'+y+'%;width:'+w+'%;transform:translate(-50%,-50%) '+rot+';">';
+  });
+  // Text blocks
+  if (data.blocks && data.blocks.length) {
+    data.blocks.forEach(function(b) {
+      var fs = b.style==='italic'?'font-style:italic;':'';
+      var fw = b.style==='bold'?'font-weight:900;':'font-weight:normal;';
+      var shadow = b.shadow?'text-shadow:0 1px 4px rgba(0,0,0,0.6);':'';
+      var tt = b.uppercase?'text-transform:uppercase;':'text-transform:none;';
+      var rot = b.rot?'rotate('+b.rot+'deg)':'';
+      h += '<div style="position:absolute;left:'+b.x+'%;top:'+b.y+'%;transform:translate(-50%,-50%) '+rot+';color:'+(b.color||'#f0f0f0')+';font-size:'+(b.size||'18px')+';'+fs+fw+shadow+tt+'font-family:'+(b.font||'Arial Black')+',sans-serif;text-align:center;max-width:85%;">'+(b.text||'')+'</div>';
     });
   }
   h += '</div>';
@@ -318,26 +382,51 @@ function renderEntry(entryId) {
 
   const renderer = RENDERERS[entry.type];
   document.getElementById('entry-display').innerHTML = renderer
-    ? renderer(entry.data || {})
+    ? renderer(entry.data || {}, entryId, entry.choices||[])
     : `<div class="entry-text fade-in">${JSON.stringify(entry.data)}</div>`;
 
-  // Choices with custom border/text colors
+  // Separate choice types
   const cz = document.getElementById('choices-zone');
-  if (entry.choices && entry.choices.length > 0) {
+  const buttonChoices = (entry.choices||[]).filter(c => !c._choiceType);
+  const thermoChoices = (entry.choices||[]).filter(c => c._choiceType==='thermo');
+
+  let czHTML = '';
+
+  // THERMO: read labels from data, all buttons go to same next
+  if (thermoChoices.length > 0) {
+    const thColor = entry.data?.thColor || '#e0c97f';
+    const thermoNext = thermoChoices[0].next;
+    const labels = (entry.data?.thLabels || '1,2,3,4,5').split(',').map(s => s.trim());
+    const origIdx = entry.choices.indexOf(thermoChoices[0]);
+    czHTML += labels.map((lbl, i) => {
+      const score = i + 1;
+      const sl = lbl.replace(/'/g, "\\'");
+      return `<button onclick="chooseThermo('${entryId}','${thermoNext}','${sl}',${origIdx},${score})" style="
+        width:46px;height:46px;border:1.5px solid ${thColor};color:${thColor};
+        background:transparent;border-radius:50%;font-family:var(--font);
+        font-size:16px;cursor:pointer;display:flex;align-items:center;
+        justify-content:center;
+      ">${lbl}</button>`;
+    }).join('');
+  }
+
+  // REGULAR buttons
+  if (buttonChoices.length > 0) {
     const bc = entry.choiceBorder || '#e0c97f';
     const tc = entry.choiceColor || '#e0c97f';
-    cz.innerHTML = entry.choices.map((c, i) => {
+    czHTML += buttonChoices.map((c, i) => {
+      const origIdx = entry.choices.indexOf(c);
       const sl = (c.label||'').replace(/'/g,"\\'");
-      return `<button onclick="choose('${entryId}','${c.next}','${sl}',${i})" style="
+      return `<button onclick="choose('${entryId}','${c.next}','${sl}',${origIdx})" style="
         flex:1;min-width:100px;max-width:200px;padding:14px 10px;
         background:transparent;color:${tc};border:1.5px solid ${bc};
         border-radius:var(--radius);font-family:var(--font);font-size:13px;
         text-transform:uppercase;cursor:pointer;
       ">${c.label||'...'}</button>`;
     }).join('');
-  } else {
-    cz.innerHTML = '';
   }
+
+  cz.innerHTML = czHTML;
 
   STATE.currentEntry = entryId;
   saveState();
@@ -348,6 +437,17 @@ function choose(fromId, nextId, label, idx) {
   STATE.history.push({
     from:fromId, chose:label, choiceIndex:idx, next:nextId,
     chapter: fe?.chapter||'', timestamp: new Date().toISOString()
+  });
+  saveState();
+  renderEntry(nextId);
+}
+
+function chooseThermo(fromId, nextId, label, idx, score) {
+  const fe = STORY.entries[fromId];
+  STATE.history.push({
+    from:fromId, chose:label, choiceIndex:idx, next:nextId,
+    chapter: fe?.chapter||'', timestamp: new Date().toISOString(),
+    thermoScore: score
   });
   saveState();
   renderEntry(nextId);
