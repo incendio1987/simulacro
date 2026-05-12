@@ -7,25 +7,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Historia</title>
 <style>
-/* ============================================================
-   THEME / STYLE VARIABLES
-   Cambia aquí para cambiar todo el look global.
-   ============================================================ */
 :root {
   --bg: #0a0a0a;
   --text: #f0f0f0;
   --accent: #e0c97f;
   --font: 'Arial Black', Arial, sans-serif;
   --radius: 12px;
-  --transition-speed: 0.35s;
-  --overlay-bg: rgba(0,0,0,0.85);
-  --btn-size: 44px;
+  --transition: 0.35s;
   --panel-bg: #1a1a1a;
 }
-
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
   font-family: var(--font);
@@ -36,559 +26,307 @@ body {
   text-transform: uppercase;
   -webkit-tap-highlight-color: transparent;
 }
-
-/* ============================================================
-   LAYOUT PRINCIPAL
-   ============================================================ */
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  position: relative;
-}
-
-/* ============================================================
-   ZONA DE CONTENIDO (donde se muestra la entrada)
-   ============================================================ */
+#app { display:flex; flex-direction:column; min-height:100dvh; position:relative; }
 #entry-display {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px 100px;
-  text-align: center;
-  position: relative;
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:60px 20px 120px; text-align:center;
 }
-
-/* ============================================================
-   ZONA DE DECISIONES (botones abajo)
-   ============================================================ */
 #choices-zone {
-  display: flex;
-  gap: 10px;
-  padding: 10px 16px 30px;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: fixed;
-  bottom: 50px;
-  left: 0; right: 0;
-  z-index: 5;
+  display:flex; gap:10px; padding:10px 16px 30px;
+  justify-content:center; flex-wrap:wrap;
+  position:fixed; bottom:50px; left:0; right:0; z-index:5;
 }
-#choices-zone button {
-  flex: 1;
-  min-width: 100px;
-  max-width: 200px;
-  padding: 14px 10px;
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  border-radius: var(--radius);
-  font-family: var(--font);
-  font-size: 13px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: transform var(--transition-speed), opacity var(--transition-speed);
-}
-#choices-zone button:active {
-  transform: scale(0.95);
-  opacity: 0.8;
-}
-
-/* ============================================================
-   MENÚ DESPLEGABLE IZQUIERDA (modular: añadir items fácil)
-   ============================================================ */
 #menu-toggle {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 100;
-  width: var(--btn-size);
-  height: var(--btn-size);
-  background: var(--panel-bg);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform var(--transition-speed);
+  position:fixed; top:16px; left:16px; z-index:100;
+  width:44px; height:44px; background:var(--panel-bg);
+  border:1px solid rgba(255,255,255,0.1); border-radius:10px;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
 }
-#menu-toggle:active { transform: scale(0.9); }
+#menu-toggle:active { transform:scale(0.9); }
 #menu-toggle svg { width:20px; height:20px; fill:var(--text); }
-
 #side-panel {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: 260px;
-  background: var(--panel-bg);
-  z-index: 99;
-  transform: translateX(-100%);
-  transition: transform var(--transition-speed) ease;
-  display: flex;
-  flex-direction: column;
-  padding: 70px 16px 20px;
-  gap: 6px;
-  overflow-y: auto;
+  position:fixed; top:0; left:0; bottom:0; width:260px;
+  background:var(--panel-bg); z-index:99;
+  transform:translateX(-100%); transition:transform var(--transition) ease;
+  display:flex; flex-direction:column; padding:70px 16px 20px; gap:6px; overflow-y:auto;
 }
-#side-panel.open { transform: translateX(0); }
-
+#side-panel.open { transform:translateX(0); }
 #panel-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 98;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--transition-speed);
+  position:fixed; inset:0; background:rgba(0,0,0,0.5);
+  z-index:98; opacity:0; pointer-events:none;
+  transition:opacity var(--transition);
 }
 #panel-overlay.open { opacity:1; pointer-events:all; }
-
-/* ============================================================
-   ITEMS DEL PANEL (cada .panel-item es una opción)
-   Para añadir una nueva opción, copia un bloque panel-item.
-   ============================================================ */
 .panel-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 12px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background var(--transition-speed);
-  font-size: 12px;
-  letter-spacing: 1px;
+  display:flex; align-items:center; gap:12px;
+  padding:14px 12px; background:rgba(255,255,255,0.05);
+  border-radius:10px; cursor:pointer; font-size:12px; letter-spacing:1px;
 }
-.panel-item:active { background: rgba(255,255,255,0.12); }
+.panel-item:active { background:rgba(255,255,255,0.12); }
 .panel-item svg { width:20px; height:20px; fill:var(--accent); flex-shrink:0; }
 
-/* ============================================================
-   SUBPANTALLA DIARIO
-   ============================================================ */
 #diary-screen {
-  position: fixed;
-  inset: 0;
-  background: var(--overlay-bg);
-  z-index: 200;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 20px;
+  position:fixed; inset:0; background:rgba(0,0,0,0.85);
+  z-index:200; display:none; flex-direction:column;
+  align-items:center; justify-content:center; padding:30px 20px;
 }
 #diary-screen.active { display:flex; }
-
-#diary-time {
-  font-size: 14px;
-  color: var(--accent);
-  margin-bottom: 16px;
-  letter-spacing: 2px;
-}
+#diary-time { font-size:14px; color:var(--accent); margin-bottom:16px; }
 #diary-input {
-  width: 100%;
-  max-width: 340px;
-  height: 180px;
-  background: var(--panel-bg);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius);
-  color: var(--text);
-  font-family: var(--font);
-  font-size: 13px;
-  padding: 14px;
-  resize: none;
-  text-transform: none;
+  width:100%; max-width:340px; height:180px;
+  background:var(--panel-bg); border:1px solid rgba(255,255,255,0.15);
+  border-radius:var(--radius); color:var(--text);
+  font-family:var(--font); font-size:13px; padding:14px;
+  resize:none; text-transform:none;
 }
 #diary-ok {
-  margin-top: 16px;
-  padding: 12px 40px;
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  border-radius: var(--radius);
-  font-family: var(--font);
-  font-size: 13px;
-  text-transform: uppercase;
-  cursor: pointer;
+  margin-top:16px; padding:12px 40px;
+  background:var(--accent); color:var(--bg); border:none;
+  border-radius:var(--radius); font-family:var(--font);
+  font-size:13px; text-transform:uppercase; cursor:pointer;
 }
-
-/* ============================================================
-   BOTÓN EXPORTAR (cartita abajo centro)
-   ============================================================ */
 #export-btn {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 50;
-  width: 40px;
-  height: 40px;
-  background: var(--panel-bg);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  position:fixed; bottom:10px; left:50%; transform:translateX(-50%);
+  z-index:50; width:40px; height:40px;
+  background:var(--panel-bg); border:1px solid rgba(255,255,255,0.1);
+  border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer;
 }
 #export-btn svg { width:18px; height:18px; fill:var(--accent); }
-
-/* ============================================================
-   TOAST / AVISO
-   ============================================================ */
 #toast {
-  position: fixed;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--accent);
-  color: var(--bg);
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 11px;
-  opacity: 0;
-  transition: all 0.4s;
-  z-index: 300;
-  pointer-events: none;
-  text-align: center;
-  max-width: 280px;
+  position:fixed; bottom:60px; left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--accent); color:var(--bg);
+  padding:10px 20px; border-radius:8px; font-size:11px;
+  opacity:0; transition:all 0.4s; z-index:300;
+  pointer-events:none; text-align:center; max-width:280px;
 }
-#toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
-
-/* ============================================================
-   ENTRY TYPE: TEXT
-   ============================================================ */
-.entry-text {
-  font-size: 22px;
-  line-height: 1.4;
-  max-width: 340px;
-  letter-spacing: 1px;
-}
-
-/* ============================================================
-   ENTRY TYPE: IMAGE
-   ============================================================ */
-.entry-image img {
-  max-width: 100%;
-  max-height: 60vh;
-  border-radius: var(--radius);
-  object-fit: contain;
-}
-
-/* ============================================================
-   ENTRY TYPE: HTML (animaciones custom, js embeds, etc.)
-   ============================================================ */
-.entry-html {
-  width: 100%;
-  max-width: 360px;
-}
-
-/* ============================================================
-   FADE ANIMATION PARA TRANSICIONES
-   ============================================================ */
-.fade-in {
-  animation: fadeIn 0.5s ease forwards;
-}
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(10px); }
-  to { opacity:1; transform:translateY(0); }
-}
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.entry-text { font-size:22px; line-height:1.4; max-width:340px; letter-spacing:1px; }
+.entry-image img { max-width:100%; max-height:60vh; border-radius:var(--radius); object-fit:contain; }
+.fade-in { animation:fadeIn 0.5s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
 </style>
 </head>
 <body>
-
 <div id="app">
-  <!-- ========== MENU TOGGLE ========== -->
   <div id="menu-toggle" onclick="togglePanel()">
-    <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
   </div>
-
-  <!-- ========== SIDE PANEL ========== -->
   <div id="panel-overlay" onclick="togglePanel()"></div>
   <div id="side-panel">
-
-    <!-- PANEL ITEM: DIARIO
-         Para añadir un nuevo item, copia desde aquí... -->
     <div class="panel-item" onclick="openDiary()">
-      <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM6 20V4h6v6h6v10H6z"/></svg>
       <span>Diario</span>
     </div>
-    <!-- ...hasta aquí. Pega debajo y cambia icono/texto/onclick -->
-
-    <!-- PANEL ITEM: DESCARGAR IMAGEN -->
-    <div class="panel-item" onclick="downloadCurrentImage()">
+    <div class="panel-item" onclick="downloadImg()">
       <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
       <span>Guardar imagen</span>
     </div>
-
-    <!-- ============================================================
-         AÑADIR NUEVAS OPCIONES AQUÍ
-         Copia un bloque .panel-item y cambia svg + span + onclick
-         ============================================================ -->
-
+    <div class="panel-item" onclick="resetStory()">
+      <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.96 7.96 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+      <span>Reiniciar</span>
+    </div>
   </div>
-
-  <!-- ========== ENTRY DISPLAY ========== -->
   <div id="entry-display"></div>
-
-  <!-- ========== CHOICES ========== -->
   <div id="choices-zone"></div>
-
-  <!-- ========== EXPORT BUTTON ========== -->
   <div id="export-btn" onclick="exportData()">
     <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
   </div>
-
-  <!-- ========== DIARY SCREEN ========== -->
   <div id="diary-screen">
     <div id="diary-time"></div>
     <textarea id="diary-input" placeholder="Escribe aquí..."></textarea>
     <button id="diary-ok" onclick="saveDiary()">OK</button>
   </div>
-
-  <!-- ========== TOAST ========== -->
   <div id="toast"></div>
 </div>
 
 <script>
 /* ==============================================================
-   DATA / STATE
-   ==============================================================
-   story.json se carga al inicio.
-   Estructura mínima de story.json:
-   {
-     "meta": { "title": "Mi Historia", "version": 1 },
-     "entries": {
-       "start": {
-         "type": "text",
-         "data": { "text": "Hola mundo", "bg": "#0a0a0a", "color": "#f0f0f0" },
-         "choices": [
-           { "label": "Opción A", "next": "cap1_a" },
-           { "label": "Opción B", "next": "cap1_b" }
-         ]
-       },
-       "cap1_a": { ... },
-       "cap1_b": { ... }
-     }
-   }
+   DATA
    ============================================================== */
-
 let STORY = null;
-let STATE = {
-  currentEntry: 'start',
-  history: [],       // [{entryId, choiceLabel, timestamp}]
-  diary: [],         // [{text, timestamp}]
-  startedAt: null
-};
+let STATE = { currentEntry:null, history:[], diary:[], startedAt:null };
 
-// Cargar state desde localStorage
 function loadState() {
-  const saved = localStorage.getItem('story_state');
-  if (saved) {
-    try { STATE = JSON.parse(saved); } catch(e) {}
-  }
+  const s = localStorage.getItem('story_state');
+  if (s) try { STATE = JSON.parse(s); } catch(e) {}
+  if (!STATE.history) STATE.history = [];
+  if (!STATE.diary) STATE.diary = [];
   if (!STATE.startedAt) STATE.startedAt = new Date().toISOString();
 }
-function saveState() {
-  localStorage.setItem('story_state', JSON.stringify(STATE));
-}
+function saveState() { localStorage.setItem('story_state', JSON.stringify(STATE)); }
 
-// Cargar story.json
-async function loadStory() {
+async function init() {
+  console.log('[HISTORIA] Cargando story.json...');
+
+  let loaded = false;
   try {
-    const res = await fetch('story.json?v=' + Date.now());
-    STORY = await res.json();
+    const res = await fetch('story.json?t=' + Date.now());
+    console.log('[HISTORIA] fetch status:', res.status);
+    if (res.ok) {
+      const text = await res.text();
+      console.log('[HISTORIA] JSON length:', text.length);
+      STORY = JSON.parse(text);
+      loaded = true;
+    }
   } catch(e) {
-    STORY = getDefaultStory();
+    console.error('[HISTORIA] fetch error:', e);
   }
+
+  if (!loaded || !STORY || !STORY.entries) {
+    document.getElementById('entry-display').innerHTML =
+      '<div class="entry-text fade-in" style="font-size:16px;">No se pudo cargar story.json<br><br><span style="font-size:11px;opacity:0.5;">Verifica que story.json está en la misma carpeta que index.html en GitHub Pages</span></div>';
+    return;
+  }
+
+  const entryCount = Object.keys(STORY.entries).length;
+  console.log('[HISTORIA] Entries:', entryCount);
+  console.log('[HISTORIA] meta.start:', STORY.meta?.start);
+  console.log('[HISTORIA] Entry IDs:', Object.keys(STORY.entries).join(', '));
+
+  // Determine start
+  const startId = STORY.meta?.start || Object.keys(STORY.entries)[0] || 'start';
+  console.log('[HISTORIA] Using start:', startId);
+
+  // Load saved state
   loadState();
+
+  // If saved currentEntry doesn't exist in this story, reset to start
+  if (!STATE.currentEntry || !STORY.entries[STATE.currentEntry]) {
+    console.log('[HISTORIA] Resetting to start. Old currentEntry was:', STATE.currentEntry);
+    STATE.currentEntry = startId;
+    STATE.startedAt = new Date().toISOString();
+    saveState();
+  }
+
+  console.log('[HISTORIA] Rendering:', STATE.currentEntry);
   renderEntry(STATE.currentEntry);
 }
 
-function getDefaultStory() {
-  return {
-    meta: { title: "Demo", version: 1 },
-    entries: {
-      start: {
-        type: "text",
-        data: { text: "Bienvenida a tu historia. Elige para comenzar.", bg: "#0a0a0a", color: "#f0f0f0", size: "22px" },
-        choices: [
-          { label: "Comenzar", next: "start" }
-        ]
-      }
-    }
-  };
-}
-
 /* ==============================================================
-   RENDERERS POR TIPO DE ENTRADA
-   Para añadir un nuevo tipo:
-   1. Crea una función renderType_NOMBRE(data) que retorne HTML
-   2. Regístrala en RENDERERS
+   RENDERERS
    ============================================================== */
-
 const RENDERERS = {};
 
-// TIPO: TEXT
 RENDERERS.text = function(data) {
-  const style = `
-    color:${data.color || 'var(--text)'};
-    font-size:${data.size || '22px'};
-  `;
-  return `<div class="entry-text fade-in" style="${style}">${data.text || ''}</div>`;
+  return `<div class="entry-text fade-in" style="color:${data.color||'var(--text)'};font-size:${data.size||'22px'};">${data.text||''}</div>`;
 };
 
-// TIPO: IMAGE
 RENDERERS.image = function(data) {
-  return `<div class="entry-image fade-in">
-    <img src="${data.src}" alt="${data.alt || ''}" />
-    ${data.caption ? `<p style="margin-top:10px;font-size:12px;opacity:0.7;">${data.caption}</p>` : ''}
-  </div>`;
+  let h = '<div class="entry-image fade-in">';
+  if (data.src) h += `<img src="${data.src}" alt="" />`;
+  if (data.caption) h += `<p style="margin-top:10px;font-size:12px;opacity:0.7;">${data.caption}</p>`;
+  if (data.text) h += `<p style="margin-top:12px;font-size:${data.textSize||'14px'};color:${data.textColor||'#f0f0f0'};${data.textStyle||''}">${data.text}</p>`;
+  h += '</div>';
+  return h;
 };
 
-// TIPO: HTML (custom embeds, animaciones, etc)
 RENDERERS.html = function(data) {
-  return `<div class="entry-html fade-in">${data.content || ''}</div>`;
+  return `<div class="fade-in">${data.content||''}</div>`;
 };
 
 /* ==============================================================
-   AÑADIR NUEVOS RENDERERS AQUÍ
-   Ejemplo:
-   RENDERERS.video = function(data) {
-     return `<video src="${data.src}" controls class="fade-in" style="max-width:100%;border-radius:12px;"></video>`;
-   };
-   ============================================================== */
-
-/* ==============================================================
-   RENDER ENGINE
+   RENDER
    ============================================================== */
 function renderEntry(entryId) {
   const entry = STORY.entries[entryId];
   if (!entry) {
-    document.getElementById('entry-display').innerHTML = '<div class="entry-text">FIN</div>';
+    document.getElementById('entry-display').innerHTML =
+      `<div class="entry-text fade-in">FIN<br><br><span style="font-size:10px;opacity:0.3;">Entrada "${entryId}" no encontrada</span></div>`;
     document.getElementById('choices-zone').innerHTML = '';
     return;
   }
 
-  // Aplicar fondo custom si lo tiene
-  document.body.style.background = (entry.data && entry.data.bg) || 'var(--bg)';
+  document.body.style.background = entry.data?.bg || 'var(--bg)';
 
-  // Render contenido
   const renderer = RENDERERS[entry.type];
-  const displayEl = document.getElementById('entry-display');
-  displayEl.innerHTML = renderer ? renderer(entry.data || {}) : `<div class="entry-text fade-in">Tipo desconocido: ${entry.type}</div>`;
+  document.getElementById('entry-display').innerHTML = renderer
+    ? renderer(entry.data || {})
+    : `<div class="entry-text fade-in">${JSON.stringify(entry.data)}</div>`;
 
-  // Render decisiones
-  const choicesEl = document.getElementById('choices-zone');
+  // Choices with custom border/text colors
+  const cz = document.getElementById('choices-zone');
   if (entry.choices && entry.choices.length > 0) {
-    choicesEl.innerHTML = entry.choices.map((c, i) =>
-      `<button onclick="choose('${entryId}','${c.next}','${c.label.replace(/'/g,"\\'")}',${i})">${c.label}</button>`
-    ).join('');
+    const bc = entry.choiceBorder || '#e0c97f';
+    const tc = entry.choiceColor || '#e0c97f';
+    cz.innerHTML = entry.choices.map((c, i) => {
+      const sl = (c.label||'').replace(/'/g,"\\'");
+      return `<button onclick="choose('${entryId}','${c.next}','${sl}',${i})" style="
+        flex:1;min-width:100px;max-width:200px;padding:14px 10px;
+        background:transparent;color:${tc};border:1.5px solid ${bc};
+        border-radius:var(--radius);font-family:var(--font);font-size:13px;
+        text-transform:uppercase;cursor:pointer;
+      ">${c.label||'...'}</button>`;
+    }).join('');
   } else {
-    choicesEl.innerHTML = '';
+    cz.innerHTML = '';
   }
 
   STATE.currentEntry = entryId;
   saveState();
 }
 
-function choose(fromId, nextId, label, index) {
+function choose(fromId, nextId, label, idx) {
+  const fe = STORY.entries[fromId];
   STATE.history.push({
-    from: fromId,
-    chose: label,
-    choiceIndex: index,
-    next: nextId,
-    timestamp: new Date().toISOString()
+    from:fromId, chose:label, choiceIndex:idx, next:nextId,
+    chapter: fe?.chapter||'', timestamp: new Date().toISOString()
   });
   saveState();
   renderEntry(nextId);
 }
 
 /* ==============================================================
-   PANEL
+   PANEL / DIARY / EXPORT / RESET
    ============================================================== */
 function togglePanel() {
   document.getElementById('side-panel').classList.toggle('open');
   document.getElementById('panel-overlay').classList.toggle('open');
 }
-
-/* ==============================================================
-   DIARIO
-   ============================================================== */
 function openDiary() {
   togglePanel();
   const now = new Date();
   document.getElementById('diary-time').textContent =
-    now.toLocaleDateString('es-ES') + ' · ' +
-    now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+    now.toLocaleDateString('es-ES')+' · '+now.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('diary-input').value = '';
   document.getElementById('diary-screen').classList.add('active');
 }
 function saveDiary() {
   const text = document.getElementById('diary-input').value.trim();
-  if (text) {
-    STATE.diary.push({
-      text: text,
-      timestamp: new Date().toISOString(),
-      atEntry: STATE.currentEntry
-    });
-    saveState();
-  }
+  if (text) { STATE.diary.push({text,timestamp:new Date().toISOString(),atEntry:STATE.currentEntry}); saveState(); }
   document.getElementById('diary-screen').classList.remove('active');
   showToast('Guardado ✓');
 }
-
-/* ==============================================================
-   DESCARGAR IMAGEN DE PANTALLA
-   ============================================================== */
-function downloadCurrentImage() {
+function downloadImg() {
   togglePanel();
   const img = document.querySelector('#entry-display img');
-  if (img) {
-    const a = document.createElement('a');
-    a.href = img.src;
-    a.download = 'imagen_historia.png';
-    a.click();
-    showToast('Descargando imagen...');
-  } else {
-    // Screenshot via canvas (para entradas de texto/html)
-    showToast('No hay imagen en esta entrada');
-  }
+  if (img) { const a=document.createElement('a');a.href=img.src;a.download='imagen.png';a.click();showToast('Descargando...'); }
+  else showToast('No hay imagen');
 }
-
-/* ==============================================================
-   EXPORTAR JSON
-   ============================================================== */
+function resetStory() {
+  togglePanel();
+  if (!confirm('¿Reiniciar historia?')) return;
+  localStorage.removeItem('story_state');
+  STATE={currentEntry:null,history:[],diary:[],startedAt:new Date().toISOString()};
+  const s = STORY?.meta?.start||Object.keys(STORY.entries)[0]||'start';
+  STATE.currentEntry=s; saveState(); renderEntry(s);
+  showToast('Reiniciada');
+}
 function exportData() {
-  const exportObj = {
-    meta: STORY ? STORY.meta : {},
-    exported_at: new Date().toISOString(),
-    state: STATE
-  };
-  const blob = new Blob([JSON.stringify(exportObj, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'historia_export_' + Date.now() + '.json';
-  a.click();
-  URL.revokeObjectURL(url);
+  const obj = {meta:STORY?STORY.meta:{},exported_at:new Date().toISOString(),state:STATE};
+  const b = new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
+  const u = URL.createObjectURL(b);
+  const a = document.createElement('a');a.href=u;a.download='historia_'+Date.now()+'.json';a.click();
+  URL.revokeObjectURL(u);
   showToast('Envíame el archivo por WhatsApp 💌');
 }
-
-/* ==============================================================
-   TOAST
-   ============================================================== */
 function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-/* ==============================================================
-   INIT
-   ============================================================== */
-loadStory();
+init();
 </script>
 </body>
 </html>
