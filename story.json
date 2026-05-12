@@ -3,7 +3,7 @@
     "title": "Mi Historia",
     "version": 1,
     "created": "2026-05-12",
-    "start": "placerism_1",
+    "start": "election_1",
     "timeMachine": {
       "password": ":>",
       "chapters": [
@@ -30,28 +30,6 @@
           "next": ""
         }
       ]
-    },
-    "dgsdgs": {
-      "type": "text",
-      "chapter": "cap1",
-      "data": {
-        "text": "fgsgffg",
-        "bg": "#0a0a0a",
-        "color": "#f0f0f0",
-        "size": "22px"
-      },
-      "choices": [
-        {
-          "label": "dssfggf",
-          "next": ""
-        },
-        {
-          "label": "gfdgfsgsd",
-          "next": ""
-        }
-      ],
-      "choiceBorder": "#e0c97f",
-      "choiceColor": "#e0c97f"
     },
     "placerism_1_1": {
       "type": "text",
@@ -189,6 +167,661 @@
       "choices": [],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
+    },
+    "election_1_1": {
+      "type": "image",
+      "chapter": "election",
+      "data": {
+        "images": [
+          {
+            "src": "data/Sin título-12.jpg",
+            "name": "Sin título-12.jpg",
+            "isChoice": false,
+            "linkTo": "",
+            "x": 47.60536401967361,
+            "y": 24.495517003926658,
+            "w": 80,
+            "rot": 0
+          }
+        ],
+        "bg": "#fa6e4a",
+        "src": "data/Sin título-12.jpg",
+        "blocks": [
+          {
+            "text": "nos han dicho que tiene muy buen gusto a si que tenemos unas divertidas preguntas",
+            "x": 50.95785439213056,
+            "y": 64.29372123955758,
+            "color": "#f1ebdf",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ]
+      },
+      "choices": [
+        {
+          "label": "lets see",
+          "next": "election_1_1_1"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#f1ebdf"
+    },
+    "election_1": {
+      "type": "image",
+      "chapter": "election",
+      "data": {
+        "images": [
+          {
+            "src": "data/Sin título-11.jpg",
+            "name": "Sin título-11.jpg",
+            "isChoice": false,
+            "linkTo": "",
+            "x": 54.310344764587505,
+            "y": 70.78313253012048,
+            "w": 80,
+            "rot": 0
+          }
+        ],
+        "bg": "#10453b",
+        "src": "data/Sin título-11.jpg",
+        "blocks": [
+          {
+            "text": "La estamos buscando, nos ayudas?",
+            "x": 40,
+            "y": 31.072289156626507,
+            "color": "#ffffff",
+            "size": "14px",
+            "font": "Arial",
+            "style": "italic",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ]
+      },
+      "choices": [
+        {
+          "label": "pues no hay otra opción",
+          "next": "election_1_1"
+        }
+      ],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
+    },
+    "election_1_1_1": {
+      "type": "text",
+      "chapter": "election",
+      "data": {
+        "text": "esta es la escena: tu tienes un lugar por el que va a pasar gente y un marcador del 1 al 5 (1 se quedan más cerca , 5 lejos, crinch maximo) debes elegir donde van estas personas.",
+        "bg": "#4faa71",
+        "color": "#10453b",
+        "size": "10px"
+      },
+      "choices": [
+        {
+          "label": "vamos a ver...",
+          "next": "election_1_1_1_1"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#f1ebdf"
+    },
+    "election_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#f1ebdf",
+        "src": "",
+        "blocks": [
+          {
+            "text": "la primera peronsa es una persona que lleva anteojeras de caballos o \"blinkers\" pero en vez de anteojeras lleva retrovisores pintados lo usa para evitar cruzar miradas por la calle",
+            "x": 51.83141756852223,
+            "y": 44.95515720956791,
+            "color": "#217ecb",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#217eca",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#b8d6ee",
+        "src": "",
+        "blocks": [
+          {
+            "text": "la segunda persona es en un escenario que el capitalismo le ha llevado a ser super efectivo, entonces es un esperador de cajeros, un trabajo muy bien remunerado pero aburridisimo consiste en esperar delante de un cajero todo el dia, es un show para banqueros ",
+            "x": 50,
+            "y": 42,
+            "color": "#217ecb",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#217ecb",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#fa6e4a",
+        "src": "",
+        "blocks": [
+          {
+            "text": "cabeza de océano con cabeza de pecera que lo que le pasa es que es muy impresionable entonces necesita meter la cabeza en una pecera para no impresionarse siempre que va a algun sitio, pues imaginate en una fruteria, se arruinaria, entonces deja la cabeza en la pecera pues ahi esta abstraido de tanta impresióm",
+            "x": 50,
+            "y": 42.432735814351865,
+            "color": "#f1ebdf",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#b8d6ee",
+        "src": "",
+        "blocks": [
+          {
+            "text": "paseador de mandarinas, es una persona que despues de ver a la gente paseando a sus mascotas y escuchando por youtube que las plantas son seres vivos, cogió una mandarina de su casa y la empezó a pasear, la llama mandarrin (con dos r) son felices y el tipo huele genial",
+            "x": 49,
+            "y": 45,
+            "color": "#217ecb",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#217ecb",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#fa6e4a",
+        "src": "",
+        "blocks": [
+          {
+            "text": "desmentidore de anuncios: es una persona que se dedica a ver todos los anuncios y hace reviews , cuenta que le parecen y si son ciertos o no, o como engañan, este empleo se popularizó tanto que los desmentidores y desmentidoras han copado todos los anuncios y solo hay anuncios de gente que ve anuncios ",
+            "x": 50.95785439213056,
+            "y": 43.55381199000344,
+            "color": "#f1ebdf",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#f1ebdf",
+        "src": "",
+        "blocks": [
+          {
+            "text": "bailaor autonomo, es una persona que la recetaron bailar pues su medica vio que le iba genial, esta persona baila chachachá pues se lo recetaron a principios del 1900 y claro es un espectaculo ver a una persona de esa edad moverse SIEMPRE así pero le sienta genial, además como han pasado tantas modas musicales es increíble ver un estilo de baile en desuso ",
+            "x": 51.64750962754305,
+            "y": 45,
+            "color": "#217ecb",
+            "size": "9px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#217ecb",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#217ecb",
+        "src": "",
+        "blocks": [
+          {
+            "text": "campeona de marathon de piscina, es una persona que gana todos los concursos de piscina, entonces va a veranear al desierto por que ahí \"se relaja del trabajo\"",
+            "x": 50,
+            "y": 50,
+            "color": "#b8d6ee",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#fa6e4a",
+        "src": "",
+        "blocks": [
+          {
+            "text": "heredera de gen colonizador, pues resulta que el gen colonizador se pasa por geneticamente, entonces hay una persona que viene de una estirpe colonizadora, pero claro  no tiene presupuesto, entonces esta adicta a pasear por 6 calles cerca de su casa con la esperanza de un dia pongan una nueva & la descubra, pero por ahora na´",
+            "x": 51,
+            "y": 43,
+            "color": "#f1ebdf",
+            "size": "7 px",
+            "font": "Georgia",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#b4d2e9",
+        "src": "",
+        "blocks": [
+          {
+            "text": "Simpatic club, es gente que geneticamente es muy simpática, entonces de ser tan simpatica la gente se aprovecha asi que como no pueden cambiar eso, deciden optar por una opcion estetica nada simpatica para \"asustar\" un poco y así la gente que se quiere aprovechar no les/as reconzan & les pidan cosas",
+            "x": 52,
+            "y": 46,
+            "color": "#217ecb",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#217ecb",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#217ecb",
+        "src": "",
+        "blocks": [
+          {
+            "text": "niña flotante, pues han descubierto que ahora las niñas salen con un super poder, y hay una que cuando la escuchas y te cuenta una historia empieza a volar, claro su familia a comprado arneses para que no se enrede en los antenas, aunque se han dado cuenta que pueden viajar si la escuchan entonces ahora los fines de semana se van de viaje por el mundo flotando, (toda la familia agarrada al arnés, la niña hablando , la familia escuchando sujetada y volando pasando la m30, montañas oceanos etc...",
+            "x": 51,
+            "y": 44,
+            "color": "#f1ebdf",
+            "size": "8px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#217ecb",
+        "src": "",
+        "blocks": [
+          {
+            "text": "la super comida, la super comida es una comida que tiene forma de galletita salada que si te la comes una galletita(solo una) te llenas por un año, entonces claro hay que tener cuidado de donde la pones, por que como te la comas sin comertela aposta estas un año sin hambre",
+            "x": 50,
+            "y": 47,
+            "color": "#f1ebdf",
+            "size": "10px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#fa6e4a",
+        "src": "",
+        "blocks": [
+          {
+            "text": "el quejador/a profesional. es una persona que se queja absolutamente de todo, algo innato en su adn, entonces claro es muy cotizado para las empresas pues puede probar desde colchones, equipos de musica, comida, cualquier cosa que siempre le va sacar pegas, entonces asi las empresas se aplican, a esta persona ltienen que poner un antifaz por que siempre se queja sino, y aun asi se queja del antifaz ",
+            "x": 50.47892719606528,
+            "y": 43.55381199000344,
+            "color": "#f1ebdf",
+            "size": "9px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#217ecb",
+        "src": "",
+        "blocks": [
+          {
+            "text": "telepatic persona, es una persona que tiene telepatia de un dia para otro, pero a cambio jamás sabrá que las otras personas no tienen telepatia, entonces claro esta esperando la cola del super sabe cuando es su turno no necesita preguntar pero se sorpende cuando se cuelan, entonces claro la pasan muchas cosas. Aunque esta en un pingpong extraño",
+            "x": 50,
+            "y": 44,
+            "color": "#f0f0f0",
+            "size": "9px",
+            "font": "Arial Black",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1": {
+      "type": "thermo",
+      "chapter": "election",
+      "data": {
+        "images": [],
+        "bg": "#10453b",
+        "src": "",
+        "blocks": [
+          {
+            "text": "eso fue todo por ahora, queria hacer dibujos de cada persona, pero quizá algún dia :>",
+            "x": 51.91570878426111,
+            "y": 43.273542946090544,
+            "color": "#f1ebdf",
+            "size": "22px",
+            "font": "Helvetica",
+            "style": "normal",
+            "shadow": false,
+            "uppercase": false,
+            "rot": 0,
+            "isChoice": false,
+            "linkTo": "",
+            "choiceBorder": "",
+            "choiceColor": ""
+          }
+        ],
+        "thColor": "#e0c97f",
+        "thLabels": "1,2,3,4,5"
+      },
+      "choices": [
+        {
+          "label": "siguiente",
+          "next": "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1",
+          "_choiceType": "thermo"
+        }
+      ],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
+    },
+    "election_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1": {
+      "type": "text",
+      "chapter": "election",
+      "data": {
+        "text": "",
+        "bg": "#0a0a0a",
+        "color": "#f0f0f0",
+        "size": "22px"
+      },
+      "choices": [],
+      "choiceBorder": "#f1ebdf",
+      "choiceColor": "#217ecb"
     }
   },
   "chapters": [
@@ -197,6 +830,7 @@
     "bienvendia",
     "placerism",
     "modismos",
-    "avel"
+    "avel",
+    "election"
   ]
 }
