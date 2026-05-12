@@ -3,7 +3,11 @@
     "title": "Mi Historia",
     "version": 1,
     "created": "2026-05-12",
-    "start": "placerism_1"
+    "start": "placerism_1",
+    "timeMachine": {
+      "password": "",
+      "chapters": []
+    }
   },
   "entries": {
     "dialectica": {
@@ -183,12 +187,36 @@
       "choices": [],
       "choiceBorder": "#e0c97f",
       "choiceColor": "#e0c97f"
+    },
+    "modismos_1": {
+      "type": "image",
+      "chapter": "modismos",
+      "data": {
+        "images": [
+          {
+            "src": "data/fulana.png",
+            "name": "fulana.png",
+            "isChoice": true,
+            "linkTo": "",
+            "x": 72.03065101900282,
+            "y": 36.73550787045902,
+            "w": 80
+          }
+        ],
+        "bg": "#0a0a0a",
+        "src": "data/fulana.png",
+        "blocks": []
+      },
+      "choices": [],
+      "choiceBorder": "#e0c97f",
+      "choiceColor": "#e0c97f"
     }
   },
   "chapters": [
     "cap1",
     "nuevo",
     "bienvendia",
-    "placerism"
+    "placerism",
+    "modismos"
   ]
 }
